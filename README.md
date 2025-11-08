@@ -1,2 +1,2 @@
 # JBot
-chatbot
+actuellement en développement
