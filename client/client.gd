@@ -1,7 +1,5 @@
 extends Node2D
 
-var server_ip = "192.168.1.20"
-var server_port = 25566
 var connection = StreamPeerTCP.new()	# ATTENTION doit être en dehors d'une fonction sinon ça coupe la connexion
 
 func erreur(error:String):
@@ -14,7 +12,7 @@ func envoyer_data(data:PackedByteArray):
 	var prefixe = str(data.size()) + "a"
 	data = PackedByteArray(prefixe.to_utf8_buffer()) + data
 	
-	err = connection.connect_to_host(server_ip, server_port)
+	err = connection.connect_to_host(Global.server_ip, Global.server_port)
 	if err != OK:
 		erreur("connexion au serveur : " + error_string(err))
 		return 0
@@ -35,4 +33,4 @@ func envoyer_data(data:PackedByteArray):
 
 func _ready() -> void:
 	# zone de tests
-	envoyer_data("test".to_utf8_buffer())
+	pass
