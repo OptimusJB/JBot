@@ -1,9 +1,10 @@
 extends Node2D
 
 var serveur = TCPServer.new()
+var server_port = 25566
 
 func se_connecter():
-	var err = serveur.listen(25566)
+	var err = serveur.listen(server_port)
 	if err != OK:
 		print("erreur lors de l'écoute : ", error_string(err))
 		return 0
@@ -11,6 +12,7 @@ func se_connecter():
 	
 func _ready() -> void:
 	se_connecter()
+	print("serveur démarré sur le port " + str(serveur.get_local_port()))
 
 func _process(delta: float) -> void:
 	#print(serveur.is_connection_available())

@@ -18,6 +18,7 @@ func envoyer_data(data:PackedByteArray):
 	if err != OK:
 		erreur("connexion au serveur : " + error_string(err))
 		return 0
+	connection.poll()
 	
 	# on attend que la connexion soit établie (car connect_to_host n'est pas bloquante
 	while not connection.get_status() == 2:
@@ -34,4 +35,4 @@ func envoyer_data(data:PackedByteArray):
 
 func _ready() -> void:
 	# zone de tests
-	pass
+	envoyer_data("test".to_utf8_buffer())
