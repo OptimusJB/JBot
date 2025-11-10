@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4bjm1y6m4s4c"]
+
+[ext_resource type="Script" uid="uid://cug18lpv2t416" path="res://client/popup/popup.gd" id="1_3715r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqoma"]
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Popup" type="PanelContainer"]
+z_index = 1
+offset_right = 21.0
+offset_bottom = 23.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eqoma")
+script = ExtResource("1_3715r")
+
+[node name="marges" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="texte" type="Label" parent="marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
