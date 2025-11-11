@@ -17,6 +17,7 @@ func _on_valider_pressed() -> void:
 		# sauvegarde des valeurs
 		Save.set_data("ip", $"../éléments ui/CenterContainer/VBoxContainer/ip serveur".text)
 		Save.set_data("port", int($"../éléments ui/CenterContainer/VBoxContainer/port serveur".text))
+		Save.sauvegarder()
 		play("disparition")
 	else:
 		# on met un message d'avertissement

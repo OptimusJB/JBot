@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://sb7lphcf5qsm"]
+[gd_scene load_steps=11 format=3 uid="uid://sb7lphcf5qsm"]
 
 [ext_resource type="Theme" uid="uid://gmqta8b8i02m" path="res://assets/theme_JBot.tres" id="1_w8k42"]
 [ext_resource type="Texture2D" uid="uid://cusnsfi5me8eb" path="res://assets/ip_image.png" id="2_1vr63"]
+[ext_resource type="Script" uid="uid://qsw6f73bkeyu" path="res://client/changer ip/container_ip_et_serveur.gd" id="2_r7pur"]
 [ext_resource type="Texture2D" uid="uid://d0emrrgw86qe" path="res://assets/port_image.png" id="3_m0c5h"]
 [ext_resource type="Script" uid="uid://c8s3ox7xqhy86" path="res://client/changer ip/animation_player.gd" id="4_m0c5h"]
 
@@ -339,6 +340,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme = ExtResource("1_w8k42")
 theme_override_constants/separation = 21
+script = ExtResource("2_r7pur")
 
 [node name="ip serveur" type="LineEdit" parent="éléments ui/CenterContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)

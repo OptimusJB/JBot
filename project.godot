@@ -11,14 +11,15 @@ config_version=5
 [application]
 
 config/name="JBot"
-run/main_scene="uid://d0tq1yglb7k1v"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+run/main_scene="uid://d1qjwx7nm7oij"
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://client/Global.gd"
 Save="*res://client/Save.gd"
+Client="*res://client/client.tscn"
 
 [display]
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1qjwx7nm7oij"]
+
+[ext_resource type="Script" uid="uid://lo12fueldume" path="res://tcp/sélecteur_client_serveur.gd" id="1_p1wgx"]
+
+[node name="SélecteurClient-serveur" type="Node"]
+script = ExtResource("1_p1wgx")

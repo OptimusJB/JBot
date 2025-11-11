@@ -11,8 +11,11 @@ func _on_changer_ip_pressed() -> void:
 
 
 func _on_se_connecter_pressed() -> void:
-	pass # Replace with function body.
-
+	print("se connecter")
+	print("se connecter2")
+	if Client.envoyer_data(["test"]):
+		# connexion réussie
+		print("connexion réussie")
 
 func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "disparition":
