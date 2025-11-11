@@ -9,16 +9,13 @@ func erreur(error:String):
 func envoyer_data(liste:Array):
 	var err = null
 	
-	print("avant connect")
 	err = connection.connect_to_host(Save.get_data("ip"), Save.get_data("port"))
-	print("après connect")
 	if err != OK:
 		erreur("connexion au serveur : " + error_string(err))
 		return 0
 	connection.poll()
 	
 	# on attend que la connexion soit établie (car connect_to_host n'est pas bloquante
-	print("avant status")
 	while not connection.get_status() == 2:
 		connection.poll()
 		if connection.get_status() in [0, 3]:
@@ -27,7 +24,6 @@ func envoyer_data(liste:Array):
 			return 0
 	
 	# on envoie les infos
-	print("avant send")
 	if not serveur.send(connection, liste):
 		connection.disconnect_from_host()
 		return 0
@@ -41,6 +37,12 @@ func envoyer_data(liste:Array):
 	connection.disconnect_from_host()
 	return data
 
+func back_to_lobby(type_back:String):
+	# fonction qui permet de retourner à l'écran de connexion lorsqu'il y a une perte de connexion
+	assert(type_back == "oui" or type_back == "non", "type_back invalide")
+	Global.retour_lobby_anim = type_back
+	get_tree().change_scene_to_file("res://client/connexion/connexion.tscn")
+	
 func _ready() -> void:
 	# zone de tests
 	pass

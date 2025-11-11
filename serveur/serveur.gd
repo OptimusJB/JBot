@@ -11,11 +11,10 @@ func se_connecter():
 	return 1
 	
 func _ready() -> void:
-	print("ready")
 	if se_connecter():
 		print("serveur démarré sur le port " + str(serveur.get_local_port()))
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	while serveur.is_connection_available():
 		var connection = serveur.take_connection()
 		handle(connection)
@@ -91,12 +90,26 @@ func str_to_list(texte:String):
 	assert(typeof(texte) == TYPE_STRING, "texte doit être une chaine de caractères")
 	var liste = texte.split("&slliste&")
 	return liste
+
+# fonctions réactions
+func connexion(pseudo:String, mdp:String) -> Array:
+	if not pseudo in Save.utilisateurs.keys():
+		# le compte n'existe pas
+		return ["creation compte"]
+	
+	if Save.utilisateurs[pseudo] == mdp:
+		return ["oui"]
+	return ["non"]
 	
 func handle(connection:StreamPeerTCP):
+	var resultat
 	# on récupère les infos
-	var message = recv(connection)
-	if not message:	# au cas où ça a crash
+	var data = recv(connection)
+	if not data:	# au cas où ça a crash
 		return 0
-	print("a")
-	if not send(connection, ["ok"]):
+	
+	if data[0] == "connexion":
+		resultat = connexion(data[1], data[2])	# retourne une liste
+		
+	if not send(connection, resultat):
 		return 0

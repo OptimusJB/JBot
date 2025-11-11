@@ -1,0 +1,251 @@
+[gd_scene load_steps=8 format=3 uid="uid://ygpwd1upfjvr"]
+
+[ext_resource type="Theme" uid="uid://gmqta8b8i02m" path="res://assets/theme_JBot.tres" id="1_br6xt"]
+[ext_resource type="Script" uid="uid://b0hh4y253h14p" path="res://client/création compte/animations.gd" id="2_qunn0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qunn0"]
+bg_color = Color(0.162066, 0.162066, 0.162065, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="Animation" id="Animation_pqag0"]
+resource_name = "apparition"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("éléments ui/fond champs:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("éléments ui/CenterContainer2/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("éléments ui/CenterContainer/HBoxContainer/retour:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("éléments ui/CenterContainer/HBoxContainer/valider:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0e7dm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("éléments ui/fond champs:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("éléments ui/CenterContainer2/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("éléments ui/CenterContainer/HBoxContainer/retour:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("éléments ui/CenterContainer/HBoxContainer/valider:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_drr4x"]
+resource_name = "disparition"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("éléments ui/fond champs:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("éléments ui/CenterContainer2/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("éléments ui/CenterContainer/HBoxContainer/retour:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("éléments ui/CenterContainer/HBoxContainer/valider:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_drr4x"]
+_data = {
+&"RESET": SubResource("Animation_0e7dm"),
+&"apparition": SubResource("Animation_pqag0"),
+&"disparition": SubResource("Animation_drr4x")
+}
+
+[node name="CréationCompte" type="Node"]
+
+[node name="éléments ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_br6xt")
+
+[node name="fond" type="ColorRect" parent="éléments ui"]
+layout_mode = 0
+offset_right = 1154.0
+offset_bottom = 655.0
+color = Color(0.273873, 0.273873, 0.273873, 1)
+
+[node name="fond champs" type="Panel" parent="éléments ui"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 356.0
+offset_top = 174.0
+offset_right = 793.0
+offset_bottom = 429.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qunn0")
+
+[node name="CenterContainer2" type="CenterContainer" parent="éléments ui"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -578.5
+offset_top = -71.0
+offset_right = 578.5
+offset_bottom = 577.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="éléments ui/CenterContainer2"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(475, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Ce compte n'existe pas.
+Le créer ?"
+horizontal_alignment = 1
+autowrap_mode = 1
+justification_flags = 139
+
+[node name="CenterContainer" type="CenterContainer" parent="éléments ui"]
+layout_mode = 0
+offset_top = 26.0
+offset_right = 1150.0
+offset_bottom = 675.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="éléments ui/CenterContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="retour" type="Button" parent="éléments ui/CenterContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "retour"
+
+[node name="valider" type="Button" parent="éléments ui/CenterContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "valider"
+
+[node name="animations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_drr4x")
+}
+script = ExtResource("2_qunn0")
+
+[connection signal="pressed" from="éléments ui/CenterContainer/HBoxContainer/retour" to="animations" method="_on_retour_pressed"]
+[connection signal="animation_finished" from="animations" to="animations" method="_on_animation_finished"]
