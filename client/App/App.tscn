@@ -1,0 +1,105 @@
+[gd_scene load_steps=4 format=3 uid="uid://2i2ldgr1uwx2"]
+
+[ext_resource type="Script" uid="uid://bnj2jurqbxdqs" path="res://client/App/animations.gd" id="1_kh48b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kh48b"]
+bg_color = Color(0.16470589, 0.3764706, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qebo1"]
+bg_color = Color(0.42365062, 0.42365065, 0.42365062, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+
+[node name="App" type="Node"]
+
+[node name="fond" type="ColorRect" parent="."]
+offset_right = 1154.0
+offset_bottom = 655.0
+color = Color(0.273873, 0.273873, 0.273873, 1)
+
+[node name="centre" type="CenterContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -577.0
+offset_top = -120.0
+offset_right = 576.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="popup" type="VBoxContainer" parent="centre"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 2
+
+[node name="éléments ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1155.0
+offset_bottom = 650.0
+
+[node name="messages" type="VBoxContainer" parent="éléments ui"]
+layout_mode = 0
+offset_left = 170.0
+offset_right = 1001.0
+offset_bottom = 521.0
+
+[node name="types messages" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -83.0
+offset_right = 40.0
+offset_bottom = -43.0
+
+[node name="question" type="AspectRatioContainer" parent="types messages"]
+layout_mode = 0
+offset_right = 1.0
+offset_bottom = 23.0
+
+[node name="fond" type="PanelContainer" parent="types messages/question"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
+
+[node name="marges" type="MarginContainer" parent="types messages/question/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="types messages/question/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jj"
+
+[node name="reponse" type="AspectRatioContainer" parent="types messages"]
+layout_mode = 0
+offset_top = 37.0
+offset_right = 32.0
+offset_bottom = 70.0
+
+[node name="fond" type="PanelContainer" parent="types messages/reponse"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
+
+[node name="marges" type="MarginContainer" parent="types messages/reponse/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="types messages/reponse/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jj"
+
+[node name="animations" type="AnimationPlayer" parent="."]
+script = ExtResource("1_kh48b")

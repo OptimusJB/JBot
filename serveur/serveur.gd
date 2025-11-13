@@ -93,13 +93,33 @@ func str_to_list(texte:String):
 
 # fonctions réactions
 func connexion(pseudo:String, mdp:String) -> Array:
+	print("tentative de connexion :")
 	if not pseudo in Save.utilisateurs.keys():
 		# le compte n'existe pas
+		print("le compte n'existe pas")
 		return ["creation compte"]
 	
 	if Save.utilisateurs[pseudo] == mdp:
+		print("connexion réussie")
 		return ["oui"]
+		
+	print("mauvais mot de passe")
 	return ["non"]
+
+func creer_compte(pseudo, mdp):
+	print("création de compte")
+	if pseudo in Save.utilisateurs.keys():
+		print("fraude, le compte existe déjà")
+		return ["fail"]
+		
+	Save.utilisateurs[pseudo] = mdp
+	Save.serveur_sauvegarder()
+	print("compte créé")
+	return ["réussi"]
+
+func check_auth(pseudo, mdp):
+	# permet de checker si la requête est légitime
+	return Save.utilisateurs[pseudo] == mdp
 	
 func handle(connection:StreamPeerTCP):
 	var resultat
@@ -107,9 +127,22 @@ func handle(connection:StreamPeerTCP):
 	var data = recv(connection)
 	if not data:	# au cas où ça a crash
 		return 0
-	
+		
+	print("\nnouvelle requête par " + data[1] + " (" + str(connection.get_connected_host()) + ")")
 	if data[0] == "connexion":
 		resultat = connexion(data[1], data[2])	# retourne une liste
+	
+	elif data[0] == "creer compte":
+		resultat = creer_compte(data[1], data[2])	# retourne une liste
+	
+	else:
+		# requêtes qui nécessitent que le compte soit connecté (donc le 2e et 3e élément de la liste sont le pseudo et le mot de passe)
+		if not check_auth(data[1], data[2]):
+			print("fraude : le mot de passe fourni ne correspond pas")
+			return
+			
+		print("requête invalide")
+		return 0
 		
 	if not send(connection, resultat):
 		return 0

@@ -392,7 +392,7 @@ size_flags_vertical = 8
 
 [node name="popup" type="VBoxContainer" parent="centre"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 15
 alignment = 2
 
 [node name="éléments ui" type="Control" parent="."]
@@ -485,6 +485,11 @@ libraries = {
 &"": SubResource("AnimationLibrary_qiwyy")
 }
 script = ExtResource("5_b27uq")
+
+[node name="cooldown connexion" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
 
 [connection signal="pressed" from="éléments ui/container champs/se connecter" to="animations" method="_on_se_connecter_pressed"]
 [connection signal="pressed" from="éléments ui/changer ip" to="animations" method="_on_changer_ip_pressed"]

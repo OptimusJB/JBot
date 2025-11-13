@@ -22,5 +22,5 @@ func _on_valider_pressed() -> void:
 	else:
 		# on met un message d'avertissement
 		var nouveau_popup = scene_popup.instantiate()
-		nouveau_popup.get_node("marges/texte").text = "port invalide"
+		nouveau_popup.get_node("popup/marges/texte").text = "port invalide"
 		$"../centre/popup".add_child(nouveau_popup)

@@ -302,7 +302,7 @@ size_flags_vertical = 8
 
 [node name="popup" type="VBoxContainer" parent="centre"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 15
 alignment = 2
 
 [node name="éléments ui" type="Control" parent="."]
