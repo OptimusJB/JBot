@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://2i2ldgr1uwx2"]
+[gd_scene load_steps=26 format=3 uid="uid://2i2ldgr1uwx2"]
 
 [ext_resource type="Script" uid="uid://bnj2jurqbxdqs" path="res://client/App/animations.gd" id="1_kh48b"]
+[ext_resource type="Theme" uid="uid://gmqta8b8i02m" path="res://assets/theme_JBot.tres" id="1_qebo1"]
+[ext_resource type="Script" uid="uid://crv0g3j3dv42b" path="res://client/App/zone_clic_droit.gd" id="2_pf0wu"]
+[ext_resource type="Texture2D" uid="uid://gcfigjbr2y51" path="res://assets/JBot logo.png" id="4_ewfhn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kh48b"]
 bg_color = Color(0.16470589, 0.3764706, 1, 1)
@@ -8,17 +11,202 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_left = 15
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kh48b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qebo1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pf0wu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewfhn"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qebo1"]
 bg_color = Color(0.42365062, 0.42365065, 0.42365062, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewfhn"]
+bg_color = Color(0.21590173, 0.2159017, 0.21590179, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ugukq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf0wu"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+border_width_left = 10
+border_color = Color(0.4, 0.4, 0.4, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_ewfhn"]
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_ugukq")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_pf0wu")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewfhn"]
+size = Vector2(1152, 521)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7g1yi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkxf7"]
+bg_color = Color(0.128217, 0.619517, 1, 1)
+border_width_left = 10
+border_width_top = 5
+border_width_right = 10
+border_width_bottom = 5
+border_color = Color(0.129412, 0.619608, 1, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_saxsh"]
+bg_color = Color(0.163877, 0.37559, 1, 1)
+border_width_left = 10
+border_width_top = 5
+border_width_right = 10
+border_width_bottom = 5
+border_color = Color(0.164706, 0.376471, 1, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iugy"]
+bg_color = Color(0.399856, 0.681823, 1, 1)
+border_width_left = 10
+border_width_top = 5
+border_width_right = 10
+border_width_bottom = 5
+border_color = Color(0.4, 0.682353, 1, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g1yi"]
+bg_color = Color(0.4, 0.4, 0.4, 1)
+border_width_left = 71
+border_width_right = 8
+border_color = Color(0.4, 0.4, 0.4, 1)
+border_blend = true
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_ugukq"]
+Button/font_sizes/font_size = 17
+Button/styles/focus = SubResource("StyleBoxEmpty_7g1yi")
+Button/styles/hover = SubResource("StyleBoxFlat_pkxf7")
+Button/styles/normal = SubResource("StyleBoxFlat_saxsh")
+Button/styles/pressed = SubResource("StyleBoxFlat_8iugy")
+LineEdit/font_sizes/font_size = 30
+LineEdit/styles/normal = SubResource("StyleBoxFlat_7g1yi")
+
+[sub_resource type="Animation" id="Animation_ewfhn"]
+resource_name = "apparition"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("éléments ui:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("logo:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.20784314)]
+}
+
+[sub_resource type="Animation" id="Animation_ugukq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("éléments ui:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("logo:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lmw26"]
+resource_name = "disparition"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("éléments ui:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("logo:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.20784314), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7mcbg"]
+_data = {
+&"RESET": SubResource("Animation_ugukq"),
+&"apparition": SubResource("Animation_ewfhn"),
+&"disparition": SubResource("Animation_lmw26")
+}
+
 [node name="App" type="Node"]
 
 [node name="fond" type="ColorRect" parent="."]
 offset_right = 1154.0
 offset_bottom = 655.0
+mouse_filter = 1
 color = Color(0.273873, 0.273873, 0.273873, 1)
 
 [node name="centre" type="CenterContainer" parent="."]
@@ -42,16 +230,234 @@ theme_override_constants/separation = 15
 alignment = 2
 
 [node name="éléments ui" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1155.0
+offset_right = 1150.0
 offset_bottom = 650.0
+mouse_filter = 1
 
-[node name="messages" type="VBoxContainer" parent="éléments ui"]
+[node name="ScrollContainer" type="ScrollContainer" parent="éléments ui"]
 layout_mode = 0
-offset_left = 170.0
-offset_right = 1001.0
+offset_left = 87.0
+offset_top = 34.0
+offset_right = 1092.0
 offset_bottom = 521.0
+
+[node name="messages" type="VBoxContainer" parent="éléments ui/ScrollContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+alignment = 2
+
+[node name="question" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/question"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
+
+[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/question/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/question/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jjdfsfsdfsdfsdfsdfsdf"
+
+[node name="proposer réponse" type="Button" parent="éléments ui/ScrollContainer/messages/question/fond"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
+
+[node name="reponse" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/reponse"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
+
+[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/reponse/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/reponse/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jjsdfsdfsdfsdf"
+
+[node name="question2" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/question2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
+
+[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/question2/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/question2/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jjdfsfsdfsdfsdfsdfsdf"
+
+[node name="proposer réponse" type="Button" parent="éléments ui/ScrollContainer/messages/question2/fond"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
+
+[node name="reponse2" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/reponse2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
+
+[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/reponse2/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/reponse2/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jjsdfsdfsdfsdf"
+
+[node name="question3" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/question3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
+
+[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/question3/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/question3/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jjdfsfsdfsdfsdfsdfsdf"
+
+[node name="proposer réponse" type="Button" parent="éléments ui/ScrollContainer/messages/question3/fond"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
+
+[node name="reponse3" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/reponse3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
+
+[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/reponse3/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/reponse3/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jjsdfsdfsdfsdf"
+
+[node name="question4" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/question4"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
+
+[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/question4/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/question4/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jjdfsfsdfsdfsdfsdfsdf"
+
+[node name="proposer réponse" type="Button" parent="éléments ui/ScrollContainer/messages/question4/fond"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
+
+[node name="reponse4" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/reponse4"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
+
+[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/reponse4/fond"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/reponse4/fond/marges"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Jjsdfsdfsdfsdf"
+
+[node name="fond 2" type="Panel" parent="éléments ui"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 521.0
+offset_right = 1115.0
+offset_bottom = 626.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewfhn")
+
+[node name="champs de texte" type="LineEdit" parent="éléments ui/fond 2"]
+layout_mode = 0
+offset_left = 55.0
+offset_top = 31.0
+offset_right = 862.0
+offset_bottom = 74.0
+theme = SubResource("Theme_ewfhn")
+placeholder_text = "entrez votre question"
+
+[node name="envoyer message" type="Button" parent="éléments ui/fond 2"]
+layout_mode = 0
+offset_left = 898.0
+offset_top = 25.0
+offset_right = 1035.0
+offset_bottom = 77.0
+mouse_filter = 1
+theme = ExtResource("1_qebo1")
+text = "envoyer"
 
 [node name="types messages" type="Control" parent="."]
 layout_mode = 3
@@ -59,6 +465,7 @@ anchors_preset = 0
 offset_top = -83.0
 offset_right = 40.0
 offset_bottom = -43.0
+mouse_filter = 1
 
 [node name="question" type="AspectRatioContainer" parent="types messages"]
 layout_mode = 0
@@ -67,6 +474,7 @@ offset_bottom = 23.0
 
 [node name="fond" type="PanelContainer" parent="types messages/question"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
 
 [node name="marges" type="MarginContainer" parent="types messages/question/fond"]
@@ -77,8 +485,17 @@ theme_override_constants/margin_bottom = 5
 
 [node name="texte" type="Label" parent="types messages/question/fond/marges"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/font_size = 20
 text = "Jj"
+
+[node name="proposer réponse" type="Button" parent="types messages/question/fond"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
 
 [node name="reponse" type="AspectRatioContainer" parent="types messages"]
 layout_mode = 0
@@ -88,6 +505,7 @@ offset_bottom = 70.0
 
 [node name="fond" type="PanelContainer" parent="types messages/reponse"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
 
 [node name="marges" type="MarginContainer" parent="types messages/reponse/fond"]
@@ -98,8 +516,52 @@ theme_override_constants/margin_bottom = 5
 
 [node name="texte" type="Label" parent="types messages/reponse/fond/marges"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_font_sizes/font_size = 20
 text = "Jj"
 
+[node name="logo" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(574, 279)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_ewfhn")
+
+[node name="menu clic droit" type="Node" parent="."]
+
+[node name="zone clic droit" type="Area2D" parent="menu clic droit"]
+priority = 1
+script = ExtResource("2_pf0wu")
+
+[node name="hitbox clic droit" type="CollisionShape2D" parent="menu clic droit/zone clic droit"]
+z_index = 1
+position = Vector2(575, 259.5)
+shape = SubResource("RectangleShape2D_ewfhn")
+
+[node name="menu" type="VBoxContainer" parent="menu clic droit"]
+visible = false
+offset_right = 195.0
+offset_bottom = 72.0
+theme = SubResource("Theme_ugukq")
+
+[node name="supprimer historique" type="Button" parent="menu clic droit/menu"]
+layout_mode = 2
+text = "supprimer historique"
+
+[node name="se déconnecter" type="Button" parent="menu clic droit/menu"]
+layout_mode = 2
+text = "se déconnecter
+"
+
 [node name="animations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7mcbg")
+}
 script = ExtResource("1_kh48b")
+
+[connection signal="mouse_entered" from="éléments ui/fond 2/envoyer message" to="éléments ui/fond 2/envoyer message" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="éléments ui/fond 2/envoyer message" to="éléments ui/fond 2/envoyer message" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="menu clic droit/zone clic droit" to="menu clic droit/zone clic droit" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="menu clic droit/zone clic droit" to="menu clic droit/zone clic droit" method="_on_mouse_exited"]
+[connection signal="pressed" from="menu clic droit/menu/supprimer historique" to="animations" method="_on_supprimer_historique_pressed"]
+[connection signal="pressed" from="menu clic droit/menu/se déconnecter" to="animations" method="_on_se_déconnecter_pressed"]
+[connection signal="animation_finished" from="animations" to="animations" method="_on_animation_finished"]

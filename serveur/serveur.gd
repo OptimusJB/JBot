@@ -4,6 +4,7 @@ var serveur = TCPServer.new()
 var server_port = 25566
 
 func se_connecter():
+	server_port = int(Save.settings["port"])
 	var err = serveur.listen(server_port)
 	if err != OK:
 		print("erreur lors de l'écoute : ", error_string(err))
@@ -120,6 +121,20 @@ func creer_compte(pseudo, mdp):
 func check_auth(pseudo, mdp):
 	# permet de checker si la requête est légitime
 	return Save.utilisateurs[pseudo] == mdp
+
+func get_history(pseudo):
+	if not pseudo in Save.history.keys():
+		Save.history[pseudo] = []
+		Save.serveur_sauvegarder()
+		print("première connexion")
+	print("historique récupéré")
+	return Save.history[pseudo]
+
+func clear_history(pseudo):
+	Save.history[pseudo] = []
+	Save.serveur_sauvegarder()
+	print("historique supprimé")
+	return ["ok"]
 	
 func handle(connection:StreamPeerTCP):
 	var resultat
@@ -140,9 +155,16 @@ func handle(connection:StreamPeerTCP):
 		if not check_auth(data[1], data[2]):
 			print("fraude : le mot de passe fourni ne correspond pas")
 			return
+		
+		if data[0] == "get history":
+			resultat = get_history(data[1])	# renvoie une liste
+		
+		elif data[0] == "clear history":
+			resultat = clear_history(data[1])	# renvoie une liste
 			
-		print("requête invalide")
-		return 0
+		else:
+			print("requête invalide")
+			return 0
 		
 	if not send(connection, resultat):
 		return 0

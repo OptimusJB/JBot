@@ -59,7 +59,6 @@ func _on_se_connecter_pressed() -> void:
 	if resultat[0] == "creation compte":
 		# le pseudo n'existe pas, création de compte + on sauvegarde le pseudo
 		Save.set_data("pseudo", $"../éléments ui/container champs/pseudo".text)
-		Save.sauvegarder()
 		change_scene = "creation"
 		play("disparition")
 		return
