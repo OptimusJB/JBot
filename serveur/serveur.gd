@@ -7,13 +7,13 @@ func se_connecter():
 	server_port = int(Save.settings["port"])
 	var err = serveur.listen(server_port)
 	if err != OK:
-		print("erreur lors de l'écoute : ", error_string(err))
+		Save.print_log("erreur lors de l'écoute : " +  error_string(err))
 		return 0
 	return 1
 	
 func _ready() -> void:
 	if se_connecter():
-		print("serveur démarré sur le port " + str(serveur.get_local_port()))
+		Save.print_log("serveur démarré sur le port " + str(serveur.get_local_port()))
 
 func _process(_delta: float) -> void:
 	while serveur.is_connection_available():
@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 		connection.disconnect_from_host()
 
 func erreur(error:String): # fonction à appeller en cas d'erreur
-	print("erreur lors du handle : ", error)
+	Save.print_log("erreur lors du handle : " + error)
 
 func recv(connection:StreamPeerTCP):
 	var duree_message = ""
@@ -94,28 +94,28 @@ func str_to_list(texte:String):
 
 # fonctions réactions
 func connexion(pseudo:String, mdp:String) -> Array:
-	print("tentative de connexion :")
+	Save.print_log("tentative de connexion :")
 	if not pseudo in Save.utilisateurs.keys():
 		# le compte n'existe pas
-		print("le compte n'existe pas")
+		Save.print_log("le compte n'existe pas")
 		return ["creation compte"]
 	
 	if Save.utilisateurs[pseudo] == mdp:
-		print("connexion réussie")
+		Save.print_log("connexion réussie")
 		return ["oui"]
 		
-	print("mauvais mot de passe")
+	Save.print_log("mauvais mot de passe")
 	return ["non"]
 
 func creer_compte(pseudo, mdp):
-	print("création de compte")
+	Save.print_log("création de compte")
 	if pseudo in Save.utilisateurs.keys():
-		print("fraude, le compte existe déjà")
+		Save.print_log("fraude, le compte existe déjà")
 		return ["fail"]
 		
 	Save.utilisateurs[pseudo] = mdp
 	Save.serveur_sauvegarder()
-	print("compte créé")
+	Save.print_log("compte créé")
 	return ["réussi"]
 
 func check_auth(pseudo, mdp):
@@ -126,14 +126,14 @@ func get_history(pseudo):
 	if not pseudo in Save.history.keys():
 		Save.history[pseudo] = []
 		Save.serveur_sauvegarder()
-		print("première connexion")
-	print("historique récupéré")
+		Save.print_log("première connexion")
+	Save.print_log("historique récupéré")
 	return Save.history[pseudo]
 
 func clear_history(pseudo):
 	Save.history[pseudo] = []
 	Save.serveur_sauvegarder()
-	print("historique supprimé")
+	Save.print_log("historique supprimé")
 	return ["ok"]
 	
 func handle(connection:StreamPeerTCP):
@@ -143,7 +143,7 @@ func handle(connection:StreamPeerTCP):
 	if not data:	# au cas où ça a crash
 		return 0
 		
-	print("\nnouvelle requête par " + data[1] + " (" + str(connection.get_connected_host()) + ")")
+	Save.print_log("nouvelle requête par " + data[1] + " (" + str(connection.get_connected_host()) + ")", true)
 	if data[0] == "connexion":
 		resultat = connexion(data[1], data[2])	# retourne une liste
 	
@@ -153,7 +153,7 @@ func handle(connection:StreamPeerTCP):
 	else:
 		# requêtes qui nécessitent que le compte soit connecté (donc le 2e et 3e élément de la liste sont le pseudo et le mot de passe)
 		if not check_auth(data[1], data[2]):
-			print("fraude : le mot de passe fourni ne correspond pas")
+			Save.print_log("fraude : le mot de passe fourni ne correspond pas")
 			return
 		
 		if data[0] == "get history":
@@ -163,7 +163,7 @@ func handle(connection:StreamPeerTCP):
 			resultat = clear_history(data[1])	# renvoie une liste
 			
 		else:
-			print("requête invalide")
+			Save.print_log("requête invalide")
 			return 0
 		
 	if not send(connection, resultat):

@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Global="*res://client/Global.gd"
 Save="*res://client/Save.gd"
 Client="*res://client/client.tscn"
+Fonctions="*res://serveur/fonctions.gd"
 
 [display]
 

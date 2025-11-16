@@ -31,7 +31,6 @@ func _on_changer_ip_pressed() -> void:
 	change_scene = "changerip"
 	play("disparition")
 
-
 func _on_se_connecter_pressed() -> void:
 	var nouveau_popup
 	
@@ -55,6 +54,7 @@ func _on_se_connecter_pressed() -> void:
 		Client.back_to_lobby("non")
 		return
 	
+	$"../cooldown connexion".start()
 	Global.temp_mdp = $"../éléments ui/container champs/mot de passe".text
 	if resultat[0] == "creation compte":
 		# le pseudo n'existe pas, création de compte + on sauvegarde le pseudo
@@ -68,7 +68,6 @@ func _on_se_connecter_pressed() -> void:
 		nouveau_popup = popup.instantiate()
 		nouveau_popup.get_node("popup/marges/texte").text = "le mot de passe est incorrect"
 		$"../centre/popup".add_child(nouveau_popup)
-		$"../cooldown connexion".start()
 	
 	elif resultat[0] == "oui":
 		# on sauvegarde le pseudo
