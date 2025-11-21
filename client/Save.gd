@@ -57,6 +57,7 @@ var settings = {}	# setting:valeur
 
 var settings_base = """
 port=25566
+algo ressemblance mot (simple/double)=simple
 pourcentage ressemblance mot pendant analyse des deux phrases=0.7
 pourcentage pour réponse appropriée=0.65
 différence pourcentage admis pour aléatoire=0.05
