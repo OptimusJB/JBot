@@ -15,7 +15,7 @@ func _ready() -> void:
 	
 	# on met le bon algo par rapport aux settings
 	algo_used = {"simple":0, "double":1}[Save.settings["algo ressemblance mot (simple/double)"]]
-	print("algo utilisé : ", algos_pourcentage[algo_used])
+
 	# on load les stopwords dans la variable
 	var fichier_read = FileAccess.get_file_as_string("res://serveur/stopwords-fr.txt")
 	if fichier_read == "":
@@ -24,7 +24,7 @@ func _ready() -> void:
 		stopwords.append(element)
 	
 	Save.serveur_charger()
-	#print("résultat : ", get_phrase_ressemblance_pourcentage("", ""))
+	#print("résultat : ", get_ressemblance_pourcentage_double("testd", "testd"))
 
 func remove_stopwords(chaine:String) -> String:
 	# retourne la chaine sans les stopwords
@@ -66,6 +66,7 @@ func get_stat(pseudo:String, stat:String):
 	var stat_choisie = {"questions":0, "suggestions":1, "accepts":2, "refus":3}[stat]
 	if not pseudo in Save.stats_utilisateurs.keys():
 		Save.stats_utilisateurs[pseudo] = [0, 0, 0, 0]
+		Save.serveur_sauvegarder()
 	return Save.stats_utilisateurs[pseudo][stat_choisie]
 
 func change_stat(pseudo:String, stat:String, incrementation:int):
@@ -138,7 +139,7 @@ func get_ressemblance_pourcentage_single(mot1:String, mot2:String):
 				duo[0].append("\n")
 			else:
 				duo[0].append(duo[1][i])
-	
+
 	var compteur = 0
 	for element in l1:
 		if element in l2:
@@ -179,6 +180,35 @@ func get_phrase_ressemblance_pourcentage(chaine1:String, chaine2:String):
 func poser_question(pseudo:String, question:String):
 	if is_blacklisted(pseudo):
 		return 0
-		
 	
-	return 1
+	var reponses_possibles = {}
+	var ressemblance = 0
+	var plus_haut_pourcentage = 0
+	
+	for question_valide in Save.questions_reponses.keys():
+		ressemblance = get_phrase_ressemblance_pourcentage(question_valide, question)
+		if ressemblance > plus_haut_pourcentage:
+			plus_haut_pourcentage = ressemblance
+			
+		if ressemblance >= float(Save.settings["pourcentage pour réponse appropriée"]):
+			for element in Save.questions_reponses[question_valide]:	# il peut y avoir plusieurs réponses pour la même question
+				reponses_possibles[element] = ressemblance
+	
+	var reponses_filtre = []
+	for reponse in reponses_possibles.keys():
+		if plus_haut_pourcentage - reponses_possibles[reponse] <= float(Save.settings["différence pourcentage admis pour aléatoire"]):
+			reponses_filtre.append(reponse)
+	
+	# on check si la liste est vide
+	if len(reponses_filtre) == 0:
+		return 1
+	
+	reponses_filtre.shuffle()
+	
+	# on check si on doit aller chercher le contenu d'un fichier
+	if "&path&" in reponses_filtre[0]:
+		var chemin_fichier = reponses_filtre[0].replace("&path&", "")
+		if not FileAccess.file_exists(chemin_fichier):
+			return 2
+		return FileAccess.get_file_as_string(chemin_fichier)
+	return reponses_filtre[0]

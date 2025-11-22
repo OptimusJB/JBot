@@ -135,6 +135,44 @@ func clear_history(pseudo):
 	Save.serveur_sauvegarder()
 	Save.print_log("historique supprimé")
 	return ["ok"]
+
+func poser_question(pseudo, question):
+	var reponse = Fonctions.poser_question(pseudo, question)
+	var elements = []
+	
+	Save.print_log(pseudo + " a posé une question : " + question)
+	Fonctions.change_stat(pseudo, "questions", 1)
+	Save.history[pseudo].append(question)
+		
+	if reponse == 0:
+		# pseudo banni
+		Save.print_log("pseudo banni")
+		elements = ["va voir sur google"]
+		elements.shuffle()
+		
+		Save.history[pseudo].append(elements[0])
+		Save.serveur_sauvegarder()
+		return elements[0]
+		
+	elif reponse == 1:
+		Save.print_log("aucune réponse trouvée")
+		elements = ["jsp", "aucune idée !"]
+		print("truc")
+		elements.shuffle()
+		Save.history[pseudo].append(elements[0])
+		Save.serveur_sauvegarder()
+		return elements[0]
+	
+	elif reponse == 2:
+		Save.print_log("fichier réponse requis non trouvé")
+		Save.history[pseudo].append("la réponse semble être liée à un fichier, mais je ne le retrouve pas :/")
+		Save.serveur_sauvegarder()
+		return "la réponse semble être liée à un fichier, mais je ne le retrouve pas :/"
+	else:
+		Save.history[pseudo].append(reponse)
+		Save.serveur_sauvegarder()
+		Save.print_log("réponse : " + reponse)
+		return reponse
 	
 func handle(connection:StreamPeerTCP):
 	var resultat
@@ -161,6 +199,9 @@ func handle(connection:StreamPeerTCP):
 		
 		elif data[0] == "clear history":
 			resultat = clear_history(data[1])	# renvoie une liste
+		
+		elif data[0] == "poser question":
+			resultat = [poser_question(data[1], data[3])]
 			
 		else:
 			Save.print_log("requête invalide")

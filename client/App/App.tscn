@@ -1,29 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://2i2ldgr1uwx2"]
+[gd_scene load_steps=28 format=3 uid="uid://2i2ldgr1uwx2"]
 
 [ext_resource type="Script" uid="uid://bnj2jurqbxdqs" path="res://client/App/animations.gd" id="1_kh48b"]
 [ext_resource type="Theme" uid="uid://gmqta8b8i02m" path="res://assets/theme_JBot.tres" id="1_qebo1"]
+[ext_resource type="Script" uid="uid://dgd4uyfadowhd" path="res://client/App/autowrap.gd" id="2_lmw26"]
 [ext_resource type="Script" uid="uid://crv0g3j3dv42b" path="res://client/App/zone_clic_droit.gd" id="2_pf0wu"]
+[ext_resource type="Script" uid="uid://cwq51wri1yfsj" path="res://client/App/reponse.gd" id="2_ugukq"]
 [ext_resource type="Texture2D" uid="uid://gcfigjbr2y51" path="res://assets/JBot logo.png" id="4_ewfhn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kh48b"]
-bg_color = Color(0.16470589, 0.3764706, 1, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_left = 15
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kh48b"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qebo1"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pf0wu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewfhn"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qebo1"]
-bg_color = Color(0.42365062, 0.42365065, 0.42365062, 1)
-corner_radius_top_left = 15
-corner_radius_top_right = 15
-corner_radius_bottom_right = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewfhn"]
 bg_color = Color(0.21590173, 0.2159017, 0.21590179, 1)
@@ -46,6 +28,26 @@ corner_radius_bottom_left = 15
 [sub_resource type="Theme" id="Theme_ewfhn"]
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_ugukq")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_pf0wu")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kh48b"]
+bg_color = Color(0.16470589, 0.3764706, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kh48b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qebo1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pf0wu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ewfhn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qebo1"]
+bg_color = Color(0.42365062, 0.42365065, 0.42365062, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewfhn"]
 size = Vector2(1152, 521)
@@ -238,198 +240,25 @@ offset_bottom = 650.0
 mouse_filter = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="éléments ui"]
-layout_mode = 0
-offset_left = 87.0
-offset_top = 34.0
-offset_right = 1092.0
-offset_bottom = 521.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -502.5
+offset_top = -290.5
+offset_right = 502.5
+offset_bottom = 194.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="messages" type="VBoxContainer" parent="éléments ui/ScrollContainer"]
-custom_minimum_size = Vector2(1000, 0)
+custom_minimum_size = Vector2(988.955, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 alignment = 2
-
-[node name="question" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/question"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
-
-[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/question/fond"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/question/fond/marges"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jjdfsfsdfsdfsdfsdfsdf"
-
-[node name="proposer réponse" type="Button" parent="éléments ui/ScrollContainer/messages/question/fond"]
-layout_mode = 2
-mouse_filter = 1
-theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
-
-[node name="reponse" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/reponse"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
-
-[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/reponse/fond"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/reponse/fond/marges"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jjsdfsdfsdfsdf"
-
-[node name="question2" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/question2"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
-
-[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/question2/fond"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/question2/fond/marges"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jjdfsfsdfsdfsdfsdfsdf"
-
-[node name="proposer réponse" type="Button" parent="éléments ui/ScrollContainer/messages/question2/fond"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
-
-[node name="reponse2" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/reponse2"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
-
-[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/reponse2/fond"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/reponse2/fond/marges"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jjsdfsdfsdfsdf"
-
-[node name="question3" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/question3"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
-
-[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/question3/fond"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/question3/fond/marges"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jjdfsfsdfsdfsdfsdfsdf"
-
-[node name="proposer réponse" type="Button" parent="éléments ui/ScrollContainer/messages/question3/fond"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
-
-[node name="reponse3" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/reponse3"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
-
-[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/reponse3/fond"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/reponse3/fond/marges"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jjsdfsdfsdfsdf"
-
-[node name="question4" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/question4"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kh48b")
-
-[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/question4/fond"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/question4/fond/marges"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jjdfsfsdfsdfsdfsdfsdf"
-
-[node name="proposer réponse" type="Button" parent="éléments ui/ScrollContainer/messages/question4/fond"]
-layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
-
-[node name="reponse4" type="AspectRatioContainer" parent="éléments ui/ScrollContainer/messages"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="fond" type="PanelContainer" parent="éléments ui/ScrollContainer/messages/reponse4"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qebo1")
-
-[node name="marges" type="MarginContainer" parent="éléments ui/ScrollContainer/messages/reponse4/fond"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="texte" type="Label" parent="éléments ui/ScrollContainer/messages/reponse4/fond/marges"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Jjsdfsdfsdfsdf"
 
 [node name="fond 2" type="Panel" parent="éléments ui"]
 layout_mode = 0
@@ -482,6 +311,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
+script = ExtResource("2_lmw26")
 
 [node name="texte" type="Label" parent="types messages/question/fond/marges"]
 layout_mode = 2
@@ -502,6 +332,7 @@ layout_mode = 0
 offset_top = 37.0
 offset_right = 32.0
 offset_bottom = 70.0
+script = ExtResource("2_ugukq")
 
 [node name="fond" type="PanelContainer" parent="types messages/reponse"]
 layout_mode = 2
@@ -513,6 +344,7 @@ layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
+script = ExtResource("2_lmw26")
 
 [node name="texte" type="Label" parent="types messages/reponse/fond/marges"]
 layout_mode = 2
@@ -558,10 +390,20 @@ libraries = {
 }
 script = ExtResource("1_kh48b")
 
+[node name="Timer apparition message" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Timer apparition reponse" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="mouse_entered" from="éléments ui/fond 2/envoyer message" to="éléments ui/fond 2/envoyer message" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="éléments ui/fond 2/envoyer message" to="éléments ui/fond 2/envoyer message" method="_on_mouse_exited"]
+[connection signal="pressed" from="éléments ui/fond 2/envoyer message" to="animations" method="_on_envoyer_message_pressed"]
 [connection signal="mouse_entered" from="menu clic droit/zone clic droit" to="menu clic droit/zone clic droit" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="menu clic droit/zone clic droit" to="menu clic droit/zone clic droit" method="_on_mouse_exited"]
 [connection signal="pressed" from="menu clic droit/menu/supprimer historique" to="animations" method="_on_supprimer_historique_pressed"]
 [connection signal="pressed" from="menu clic droit/menu/se déconnecter" to="animations" method="_on_se_déconnecter_pressed"]
 [connection signal="animation_finished" from="animations" to="animations" method="_on_animation_finished"]
+[connection signal="timeout" from="Timer apparition message" to="animations" method="_on_timer_apparition_message_timeout"]
+[connection signal="timeout" from="Timer apparition reponse" to="animations" method="_on_timer_apparition_reponse_timeout"]
