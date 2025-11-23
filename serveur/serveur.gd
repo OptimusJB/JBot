@@ -192,6 +192,13 @@ func proposer_reponse(pseudo, question, reponse):
 func is_admin(pseudo):
 	return pseudo in Save.admins
 	
+func arret_serveur():
+	Save.print_log("arrêt du serveur en cours")
+	serveur.stop()
+	Save.print_log("serveur arrêté")
+	Save.serveur_sauvegarder(true)
+	get_tree().quit()
+	
 func handle(connection:StreamPeerTCP):
 	var resultat
 	# on récupère les infos
@@ -225,8 +232,18 @@ func handle(connection:StreamPeerTCP):
 			resultat = [proposer_reponse(data[1], data[3], data[4])]
 			
 		else:
-			Save.print_log("requête invalide")
-			return 0
+			# requêtes qui nécessitent les droits admins
+			if not is_admin(data[1]):
+				Save.print_log("requête invalide")
+				return 0
+			
+			if data[0] == "arret serveur":
+				send(connection, ["ok"])
+				arret_serveur()
+				return
+			else:
+				Save.print_log("requête invalide")
+				return 0
 		
 	if not send(connection, resultat):
 		return 0

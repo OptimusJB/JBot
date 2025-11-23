@@ -65,7 +65,7 @@ func get_stat(pseudo:String, stat:String):
     1:nb suggestions
     2:nb suggestions acceptées
     3:nb suggestions refusées
-    """
+	"""
 	assert(stat in ["questions", "suggestions", "accepts", "refus"], "stat invalide")
 	var stat_choisie = {"questions":0, "suggestions":1, "accepts":2, "refus":3}[stat]
 	if not pseudo in Save.stats_utilisateurs.keys():
