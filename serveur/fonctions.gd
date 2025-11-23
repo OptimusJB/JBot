@@ -20,11 +20,17 @@ func _ready() -> void:
 	var fichier_read = FileAccess.get_file_as_string("res://serveur/stopwords-fr.txt")
 	if fichier_read == "":
 		push_error("problème lors de la lecture du fichier stopwords")
+	
+	# on vérifie s'il y a bien une ligne vide au début et à la fin
+	#assert(fichier_read[0] == "\n", "le début du fichier doit être une ligne vide")
+	#assert(fichier_read[len(fichier_read) - 1] == "\n", "la fin du fichier doit être une ligne vide")
+	
 	for element in fichier_read.split("\n"):
 		stopwords.append(element)
 	
-	Save.serveur_charger()
+	#Save.serveur_charger()
 	#print("résultat : ", get_ressemblance_pourcentage_double("testd", "testd"))
+	#print(remove_stopwords("ceci est un test"))
 
 func remove_stopwords(chaine:String) -> String:
 	# retourne la chaine sans les stopwords
@@ -32,10 +38,8 @@ func remove_stopwords(chaine:String) -> String:
 	var a_supprimer = []
 	var new_chaine = ""
 	for element in liste_chaine:
-		for stopword in stopwords:
-			if element == stopword:
-				a_supprimer.append(element)
-				break
+		if element in stopwords:
+			a_supprimer.append(element)
 	
 	for element in a_supprimer:
 		liste_chaine.erase(element)

@@ -1,7 +1,7 @@
 extends AnimationPlayer
 var popup = load("res://client/popup/popup.tscn")
 var texte_envoi = ""	# pour garder en mémoire la question (enlevée du champs de texte)
-var scrolled_down = false
+var type_disparition = "deconnexion" # = deconnexion ou admin
 
 func _ready() -> void:
 	var nouveau_popup
@@ -41,11 +41,19 @@ func _ready() -> void:
 	play("apparition")
 
 func _on_se_déconnecter_pressed() -> void:
+	type_disparition = "deconnexion"
+	play("disparition")
+
+func _on_admin_pressed() -> void:
+	type_disparition = "admin"
 	play("disparition")
 
 func _on_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "disparition":
-		get_tree().change_scene_to_file("res://client/connexion/connexion.tscn")
+		if type_disparition == "deconnexion":
+			get_tree().change_scene_to_file("res://client/connexion/connexion.tscn")
+		else:
+			get_tree().change_scene_to_file("res://client/admin/admin.tscn")
 
 
 func _on_supprimer_historique_pressed() -> void:
@@ -82,6 +90,10 @@ func _on_envoyer_message_pressed() -> void:
 	nouveau_message.size_flags_horizontal = 8	# on le colle à droite
 	nouveau_message.modulate = Color(1.0, 1.0, 1.0, 0.0)
 	
+	# on rajoute un texte au début si c'est une proposition
+	if Global.proposition:
+		nouveau_message.get_node("fond/marges/texte").text = "je propose la réponse : " + nouveau_message.get_node("fond/marges/texte").text
+		
 	"""
 	var scroll = create_tween()
 	scroll.tween_property($"../éléments ui/ScrollContainer", "scroll_vertical", $"../éléments ui/ScrollContainer".get_v_scroll_bar().max_value, 0)
@@ -108,10 +120,19 @@ func _on_envoyer_message_pressed() -> void:
 func _on_timer_apparition_message_timeout() -> void:
 	#print.call_deferred($"../éléments ui/ScrollContainer".get_v_scroll_bar().value)
 	# on envoie un message au serveur
-	var resultat = Client.envoyer_data(["poser question", Save.get_data("pseudo"), Global.temp_mdp, texte_envoi])
+	var resultat
+	if not Global.proposition:
+		resultat = Client.envoyer_data(["poser question", Save.get_data("pseudo"), Global.temp_mdp, texte_envoi])
+	else:
+		resultat = Client.envoyer_data(["proposer reponse", Save.get_data("pseudo"), Global.temp_mdp, Global.question_proposition, texte_envoi])
+	
 	if not resultat:
 		Client.back_to_lobby("oui")
 		return
+	
+	#on reset le bouton et le texte
+	$"../types messages/question/fond/proposer réponse".reset()
+	
 	
 	# on a reçu une réponse
 	# on crée le nouveau noeud

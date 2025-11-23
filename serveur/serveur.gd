@@ -101,8 +101,12 @@ func connexion(pseudo:String, mdp:String) -> Array:
 		return ["creation compte"]
 	
 	if Save.utilisateurs[pseudo] == mdp:
-		Save.print_log("connexion réussie")
-		return ["oui"]
+		if is_admin(pseudo):
+			Save.print_log("connexion admin réussie")
+			return ["admin"]
+		else:
+			Save.print_log("connexion réussie")
+			return ["oui"]
 		
 	Save.print_log("mauvais mot de passe")
 	return ["non"]
@@ -114,8 +118,8 @@ func creer_compte(pseudo, mdp):
 		return ["fail"]
 		
 	Save.utilisateurs[pseudo] = mdp
-	Save.serveur_sauvegarder()
 	Save.print_log("compte créé")
+	Save.serveur_sauvegarder()
 	return ["réussi"]
 
 func check_auth(pseudo, mdp):
@@ -157,7 +161,6 @@ func poser_question(pseudo, question):
 	elif reponse == 1:
 		Save.print_log("aucune réponse trouvée")
 		elements = ["jsp", "aucune idée !"]
-		print("truc")
 		elements.shuffle()
 		Save.history[pseudo].append(elements[0])
 		Save.serveur_sauvegarder()
@@ -173,6 +176,21 @@ func poser_question(pseudo, question):
 		Save.serveur_sauvegarder()
 		Save.print_log("réponse : " + reponse)
 		return reponse
+
+func proposer_reponse(pseudo, question, reponse):
+	Save.print_log("proposition de réponse")
+	if not Fonctions.is_blacklisted(pseudo):
+		var liste = [pseudo, question, reponse]
+		Save.demandes_reponses.append(liste)
+		Fonctions.change_stat(pseudo, "suggestions", 1)
+		#Save.serveur_sauvegarder()	# pas besoin du sauvegarder ici (déjà dans change_stat)
+		
+	else:
+		Save.print_log("pseudo banni")
+	return "ta proposition a été envoyée, merci pour ta contribution !"
+
+func is_admin(pseudo):
+	return pseudo in Save.admins
 	
 func handle(connection:StreamPeerTCP):
 	var resultat
@@ -202,6 +220,9 @@ func handle(connection:StreamPeerTCP):
 		
 		elif data[0] == "poser question":
 			resultat = [poser_question(data[1], data[3])]
+		
+		elif data[0] == "proposer reponse":
+			resultat = [proposer_reponse(data[1], data[3], data[4])]
 			
 		else:
 			Save.print_log("requête invalide")

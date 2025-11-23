@@ -1,11 +1,14 @@
-[gd_scene load_steps=28 format=3 uid="uid://2i2ldgr1uwx2"]
+[gd_scene load_steps=31 format=3 uid="uid://2i2ldgr1uwx2"]
 
 [ext_resource type="Script" uid="uid://bnj2jurqbxdqs" path="res://client/App/animations.gd" id="1_kh48b"]
+[ext_resource type="Script" uid="uid://dm8etxgbqumeg" path="res://client/App/fond_2.gd" id="1_lwptl"]
 [ext_resource type="Theme" uid="uid://gmqta8b8i02m" path="res://assets/theme_JBot.tres" id="1_qebo1"]
 [ext_resource type="Script" uid="uid://dgd4uyfadowhd" path="res://client/App/autowrap.gd" id="2_lmw26"]
 [ext_resource type="Script" uid="uid://crv0g3j3dv42b" path="res://client/App/zone_clic_droit.gd" id="2_pf0wu"]
 [ext_resource type="Script" uid="uid://cwq51wri1yfsj" path="res://client/App/reponse.gd" id="2_ugukq"]
 [ext_resource type="Texture2D" uid="uid://gcfigjbr2y51" path="res://assets/JBot logo.png" id="4_ewfhn"]
+[ext_resource type="Script" uid="uid://cr2iyvo5b5wo5" path="res://client/App/proposer_réponse.gd" id="4_ge6em"]
+[ext_resource type="Script" uid="uid://d3cn01c17usn7" path="res://client/App/admin.gd" id="8_ge6em"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewfhn"]
 bg_color = Color(0.21590173, 0.2159017, 0.21590179, 1)
@@ -19,6 +22,7 @@ corner_radius_bottom_left = 20
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pf0wu"]
 bg_color = Color(0.4, 0.4, 0.4, 1)
 border_width_left = 10
+border_width_right = 10
 border_color = Color(0.4, 0.4, 0.4, 1)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
@@ -211,6 +215,12 @@ offset_bottom = 655.0
 mouse_filter = 1
 color = Color(0.273873, 0.273873, 0.273873, 1)
 
+[node name="logo" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(574, 279)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_ewfhn")
+
 [node name="centre" type="CenterContainer" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -258,6 +268,7 @@ horizontal_scroll_mode = 0
 custom_minimum_size = Vector2(988.955, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 20
 alignment = 2
 
 [node name="fond 2" type="Panel" parent="éléments ui"]
@@ -268,6 +279,7 @@ offset_right = 1115.0
 offset_bottom = 626.0
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_ewfhn")
+script = ExtResource("1_lwptl")
 
 [node name="champs de texte" type="LineEdit" parent="éléments ui/fond 2"]
 layout_mode = 0
@@ -279,11 +291,18 @@ theme = SubResource("Theme_ewfhn")
 placeholder_text = "entrez votre question"
 
 [node name="envoyer message" type="Button" parent="éléments ui/fond 2"]
-layout_mode = 0
-offset_left = 898.0
-offset_top = 25.0
-offset_right = 1035.0
-offset_bottom = 77.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.90200007
+anchor_top = 0.476
+anchor_right = 0.90200007
+anchor_bottom = 0.476
+offset_left = -68.2381
+offset_top = -25.98
+offset_right = 68.7619
+offset_bottom = 26.02
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_qebo1")
 text = "envoyer"
@@ -326,6 +345,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_kh48b")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_qebo1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_pf0wu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ewfhn")
+script = ExtResource("4_ge6em")
 
 [node name="reponse" type="AspectRatioContainer" parent="types messages"]
 layout_mode = 0
@@ -351,12 +371,6 @@ layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 20
 text = "Jj"
-
-[node name="logo" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(574, 279)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("4_ewfhn")
 
 [node name="menu clic droit" type="Node" parent="."]
 
@@ -384,6 +398,11 @@ layout_mode = 2
 text = "se déconnecter
 "
 
+[node name="admin" type="Button" parent="menu clic droit/menu"]
+layout_mode = 2
+text = "admin"
+script = ExtResource("8_ge6em")
+
 [node name="animations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_7mcbg")
@@ -400,10 +419,13 @@ one_shot = true
 [connection signal="mouse_entered" from="éléments ui/fond 2/envoyer message" to="éléments ui/fond 2/envoyer message" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="éléments ui/fond 2/envoyer message" to="éléments ui/fond 2/envoyer message" method="_on_mouse_exited"]
 [connection signal="pressed" from="éléments ui/fond 2/envoyer message" to="animations" method="_on_envoyer_message_pressed"]
+[connection signal="changer_proposition" from="types messages/question/fond/proposer réponse" to="éléments ui/fond 2" method="_on_proposer_réponse_changer_proposition"]
+[connection signal="pressed" from="types messages/question/fond/proposer réponse" to="types messages/question/fond/proposer réponse" method="_on_pressed"]
 [connection signal="mouse_entered" from="menu clic droit/zone clic droit" to="menu clic droit/zone clic droit" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="menu clic droit/zone clic droit" to="menu clic droit/zone clic droit" method="_on_mouse_exited"]
 [connection signal="pressed" from="menu clic droit/menu/supprimer historique" to="animations" method="_on_supprimer_historique_pressed"]
 [connection signal="pressed" from="menu clic droit/menu/se déconnecter" to="animations" method="_on_se_déconnecter_pressed"]
+[connection signal="pressed" from="menu clic droit/menu/admin" to="animations" method="_on_admin_pressed"]
 [connection signal="animation_finished" from="animations" to="animations" method="_on_animation_finished"]
 [connection signal="timeout" from="Timer apparition message" to="animations" method="_on_timer_apparition_message_timeout"]
 [connection signal="timeout" from="Timer apparition reponse" to="animations" method="_on_timer_apparition_reponse_timeout"]

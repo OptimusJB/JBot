@@ -49,7 +49,7 @@ func reset_save():
 var utilisateurs = {}	# pseudo:mdp
 var stats_utilisateurs = {}	# pseudo:[questions, suggestions, accepts, refus]
 var questions_reponses = {} # question:[reponse1, reponse2...]
-var demandes_reponses = {}	# [pseudo, question, reponse]
+var demandes_reponses = []	# listes dans liste : [pseudo, question, reponse]
 var history = {}	# pseudo:[question, reponse, question, reponse]
 var admins = []	# non inclus dans data pour que ce soi simple de changer
 var blacklist = []	# non inclus dans data non plus
@@ -61,6 +61,7 @@ algo ressemblance mot (simple/double)=simple
 pourcentage ressemblance mot pendant analyse des deux phrases=0.7
 pourcentage pour réponse appropriée=0.65
 différence pourcentage admis pour aléatoire=0.05
+sauvegarde automatique=1
 """
 
 const serveur_dossier_save = "user://JBot_server/"	# si on ajoute un dossier, penser à le générer automatiquement
@@ -70,16 +71,18 @@ const serveur_fichier_settings = "settings.txt"
 const serveur_fichier_blacklist = "blacklist.txt"
 #const mots_interdits = ["\n"]
 
-func serveur_sauvegarder():
-	var fichier = FileAccess.open(serveur_dossier_save + serveur_fichier_save, FileAccess.WRITE)
-	fichier.store_var(utilisateurs)
-	fichier.store_var(stats_utilisateurs)
-	fichier.store_var(questions_reponses)
-	fichier.store_var(history)
-	fichier.store_var(blacklist)
-	fichier.store_var(demandes_reponses)
-	fichier.close()
-	
+func serveur_sauvegarder(manual=false):
+	if manual or int(Save.settings["sauvegarde automatique"]):
+		var fichier = FileAccess.open(serveur_dossier_save + serveur_fichier_save, FileAccess.WRITE)
+		fichier.store_var(utilisateurs)
+		fichier.store_var(stats_utilisateurs)
+		fichier.store_var(questions_reponses)
+		fichier.store_var(history)
+		fichier.store_var(blacklist)
+		fichier.store_var(demandes_reponses)
+		fichier.close()
+		print_log("serveur sauvegardé")
+		
 func serveur_charger():
 	var fichier = FileAccess.open(serveur_dossier_save + serveur_fichier_save, FileAccess.READ)
 	var contenu_fichier
@@ -129,7 +132,7 @@ func serveur_auto_repare():
 	var dossier = DirAccess.open(serveur_dossier_save)	# on regarde qu'un seul fichier
 	var fichier
 	if not dossier.file_exists(serveur_fichier_save):
-		serveur_sauvegarder()
+		serveur_sauvegarder(true)
 		print("fichier sauvegarde principal créé car absent")
 		
 	if not dossier.file_exists(serveur_fichier_admins):

@@ -69,7 +69,11 @@ func _on_se_connecter_pressed() -> void:
 		nouveau_popup.get_node("popup/marges/texte").text = "le mot de passe est incorrect"
 		$"../centre/popup".add_child(nouveau_popup)
 	
-	elif resultat[0] == "oui":
+	elif resultat[0] in ["oui", "admin"]:
+		Global.is_admin = false
+		if resultat[0] == "admin":
+			Global.is_admin = true
+			
 		# on sauvegarde le pseudo
 		Save.set_data("pseudo", $"../éléments ui/container champs/pseudo".text)
 		
