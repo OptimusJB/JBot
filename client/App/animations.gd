@@ -2,6 +2,7 @@ extends AnimationPlayer
 var popup = load("res://client/popup/popup.tscn")
 var texte_envoi = ""	# pour garder en mémoire la question (enlevée du champs de texte)
 var type_disparition = "deconnexion" # = deconnexion ou admin
+var reponse_suggestion = false	# détermine si la réponse automatique de suggestion a déjà été faite
 
 func _ready() -> void:
 	var nouveau_popup
@@ -135,13 +136,16 @@ func _on_timer_apparition_message_timeout() -> void:
 	
 	
 	# on a reçu une réponse
+	repondre(resultat[0])
+
+func repondre(message):
 	# on crée le nouveau noeud
 	var noeud_reponse = $"../types messages/reponse".duplicate()
 	noeud_reponse.size_flags_horizontal = 0 # pour le mettre sur la gauche
 	
 	# on met en place la réponse
 	Global.noeud_concerne = noeud_reponse
-	Global.reponse_finale = resultat[0]
+	Global.reponse_finale = message
 	Global.index_reponse = 0
 	
 	$"../éléments ui/ScrollContainer/messages".add_child(noeud_reponse)
@@ -156,6 +160,12 @@ func _on_timer_apparition_message_timeout() -> void:
 	
 	$"../Timer apparition reponse".wait_time = temps
 	$"../Timer apparition reponse".start()
-
+	
 func _on_timer_apparition_reponse_timeout() -> void:
+	if not reponse_suggestion:
+		if randi() % 5 == 0:
+			# on ajoute une autre réponse
+			repondre("je n'ai pas bien répondu ? clique sur ton message et propose une réponse !")
+			reponse_suggestion = true
+			return
 	$"../éléments ui/fond 2/envoyer message".disabled = false

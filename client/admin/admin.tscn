@@ -1,7 +1,25 @@
-[gd_scene load_steps=9 format=3 uid="uid://1uhmqlb3bwyp"]
+[gd_scene load_steps=19 format=3 uid="uid://1uhmqlb3bwyp"]
 
+[ext_resource type="Script" uid="uid://dhxx5214kjykl" path="res://client/admin/popup.gd" id="1_0r8yo"]
 [ext_resource type="Theme" uid="uid://gmqta8b8i02m" path="res://assets/theme_JBot.tres" id="1_khjxm"]
+[ext_resource type="Script" uid="uid://bnb6wgm7l2frx" path="res://client/admin/suggestion.gd" id="2_24tl4"]
 [ext_resource type="Script" uid="uid://cphfuy2bmdlr8" path="res://client/admin/animations.gd" id="2_j3pxg"]
+[ext_resource type="Script" uid="uid://810qpkgfn0yk" path="res://client/admin/suggestions.gd" id="2_mvxxf"]
+[ext_resource type="Theme" uid="uid://melt55d4xf8i" path="res://assets/theme suggestions.tres" id="3_mvxxf"]
+[ext_resource type="Script" uid="uid://l3q3ol8rvth5" path="res://client/admin/reponses.gd" id="3_r1a7c"]
+[ext_resource type="Script" uid="uid://d2ahkhdbuy242" path="res://client/admin/question_reponse.gd" id="4_m4xmn"]
+[ext_resource type="Script" uid="uid://bn71wwhcnomsn" path="res://client/admin/blacklist.gd" id="6_r1a7c"]
+[ext_resource type="Script" uid="uid://sw6ye72ditcq" path="res://client/admin/banni.gd" id="7_m4xmn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqsau"]
+bg_color = Color(0.42352942, 0.42352942, 0.42352942, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_hchj1"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_uqsau")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_khjxm"]
 bg_color = Color(0.162066, 0.162066, 0.162065, 1)
@@ -149,6 +167,28 @@ _data = {
 
 [node name="Admin" type="Node"]
 
+[node name="centre" type="CenterContainer" parent="."]
+z_index = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -577.0
+offset_top = -120.0
+offset_right = 576.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="popup" type="VBoxContainer" parent="centre"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 2
+script = ExtResource("1_0r8yo")
+
 [node name="fond" type="ColorRect" parent="."]
 offset_right = 1154.0
 offset_bottom = 655.0
@@ -201,47 +241,341 @@ layout_mode = 3
 anchors_preset = 0
 
 [node name="reponses" type="Control" parent="pages"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_r1a7c")
+
+[node name="question_reponse" type="HBoxContainer" parent="pages/reponses"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = -88.0
+offset_right = 930.0
+offset_bottom = -41.0
+theme_override_constants/separation = 17
+script = ExtResource("4_m4xmn")
+
+[node name="panel question" type="PanelContainer" parent="pages/reponses/question_reponse"]
+layout_mode = 2
+theme = SubResource("Theme_hchj1")
+
+[node name="MarginContainer" type="MarginContainer" parent="pages/reponses/question_reponse/panel question"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="question" type="Label" parent="pages/reponses/question_reponse/panel question/MarginContainer"]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 3
+
+[node name="panel reponse" type="PanelContainer" parent="pages/reponses/question_reponse"]
+layout_mode = 2
+theme = SubResource("Theme_hchj1")
+
+[node name="MarginContainer" type="MarginContainer" parent="pages/reponses/question_reponse/panel reponse"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="reponse" type="Label" parent="pages/reponses/question_reponse/panel reponse/MarginContainer"]
+custom_minimum_size = Vector2(265, 0)
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 3
+
+[node name="supprimer" type="Button" parent="pages/reponses/question_reponse"]
+layout_mode = 2
+theme = ExtResource("3_mvxxf")
+text = "supprimer"
+
+[node name="fond champs" type="Panel" parent="pages/reponses"]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 96.0
+offset_right = 974.0
+offset_bottom = 640.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_khjxm")
+
+[node name="éléments texte" type="Control" parent="pages/reponses"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="rechercher_duo_texte" type="LineEdit" parent="pages/reponses/éléments texte"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 114.0
+offset_right = 763.0
+offset_bottom = 164.0
+theme = ExtResource("1_khjxm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3pxg")
+placeholder_text = "rechercher"
+
+[node name="rechercher_duo_bouton" type="Button" parent="pages/reponses/éléments texte"]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 113.0
+offset_right = 955.0
+offset_bottom = 165.0
+theme = ExtResource("1_khjxm")
+text = "rechercher"
+
+[node name="ajouter_question_texte" type="LineEdit" parent="pages/reponses/éléments texte"]
+layout_mode = 0
+offset_left = 201.0
+offset_top = 178.0
+offset_right = 474.0
+offset_bottom = 228.0
+theme = ExtResource("1_khjxm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3pxg")
+placeholder_text = "question"
+
+[node name="ajouter_reponse_texte" type="LineEdit" parent="pages/reponses/éléments texte"]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 178.0
+offset_right = 762.0
+offset_bottom = 228.0
+theme = ExtResource("1_khjxm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3pxg")
+placeholder_text = "réponse"
+
+[node name="ajouter_duo_bouton" type="Button" parent="pages/reponses/éléments texte"]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 177.0
+offset_right = 955.0
+offset_bottom = 229.0
+theme = ExtResource("1_khjxm")
+text = "ajouter"
+
+[node name="is_file_bouton" type="CheckButton" parent="pages/reponses/éléments texte"]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 237.0
+offset_right = 957.0
+offset_bottom = 284.0
+theme = ExtResource("3_mvxxf")
+text = "est fichier"
+
+[node name="scrolling" type="ScrollContainer" parent="pages/reponses"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 294.0
+offset_right = 949.0
+offset_bottom = 641.0
+
+[node name="liste questions_reponses" type="VBoxContainer" parent="pages/reponses/scrolling"]
+layout_mode = 2
+theme_override_constants/separation = 11
+
 [node name="suggestions" type="Control" parent="pages"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("2_mvxxf")
+
+[node name="suggestion" type="HBoxContainer" parent="pages/suggestions"]
+layout_mode = 0
+offset_top = -94.0
+offset_right = 629.0
+offset_bottom = -30.0
+theme_override_constants/separation = 7
+script = ExtResource("2_24tl4")
+
+[node name="panel question" type="PanelContainer" parent="pages/suggestions/suggestion"]
+layout_mode = 2
+theme = SubResource("Theme_hchj1")
+
+[node name="MarginContainer" type="MarginContainer" parent="pages/suggestions/suggestion/panel question"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="question" type="Label" parent="pages/suggestions/suggestion/panel question/MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 3
+
+[node name="panel reponse" type="PanelContainer" parent="pages/suggestions/suggestion"]
+layout_mode = 2
+theme = SubResource("Theme_hchj1")
+
+[node name="MarginContainer" type="MarginContainer" parent="pages/suggestions/suggestion/panel reponse"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="reponse" type="Label" parent="pages/suggestions/suggestion/panel reponse/MarginContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 0
+autowrap_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pages/suggestions/suggestion"]
+layout_mode = 2
+
+[node name="pseudo" type="Label" parent="pages/suggestions/suggestion/VBoxContainer"]
+layout_mode = 2
+text = "par"
+
+[node name="choix" type="HBoxContainer" parent="pages/suggestions/suggestion/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_mvxxf")
+
+[node name="oui" type="Button" parent="pages/suggestions/suggestion/VBoxContainer/choix"]
+layout_mode = 2
+text = "oui"
+
+[node name="non" type="Button" parent="pages/suggestions/suggestion/VBoxContainer/choix"]
+layout_mode = 2
+text = "non"
+
+[node name="non + ban" type="Button" parent="pages/suggestions/suggestion/VBoxContainer/choix"]
+layout_mode = 2
+text = "non + ban"
+
+[node name="stockage pseudo" type="Label" parent="pages/suggestions/suggestion"]
+visible = false
+layout_mode = 2
 
 [node name="fond champs" type="Panel" parent="pages/suggestions"]
 layout_mode = 0
 offset_left = 181.0
 offset_top = 96.0
 offset_right = 974.0
-offset_bottom = 568.0
+offset_bottom = 640.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_khjxm")
 
-[node name="rechercher" type="LineEdit" parent="pages/suggestions"]
+[node name="rechercher_texte" type="LineEdit" parent="pages/suggestions"]
 layout_mode = 0
-offset_left = 205.0
+offset_left = 200.0
 offset_top = 114.0
-offset_right = 952.0
+offset_right = 763.0
 offset_bottom = 164.0
 theme = ExtResource("1_khjxm")
 theme_override_styles/normal = SubResource("StyleBoxFlat_j3pxg")
 placeholder_text = "rechercher"
 
+[node name="rechercher_bouton" type="Button" parent="pages/suggestions"]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 113.0
+offset_right = 955.0
+offset_bottom = 165.0
+theme = ExtResource("1_khjxm")
+text = "rechercher"
+
 [node name="scrolling" type="ScrollContainer" parent="pages/suggestions"]
 layout_mode = 0
-offset_left = 205.0
-offset_top = 165.0
-offset_right = 954.0
-offset_bottom = 567.0
+offset_left = 200.0
+offset_top = 174.0
+offset_right = 949.0
+offset_bottom = 641.0
 
 [node name="questions_reponses" type="VBoxContainer" parent="pages/suggestions/scrolling"]
 layout_mode = 2
+theme_override_constants/separation = 11
 
 [node name="blacklist" type="Control" parent="pages"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("6_r1a7c")
+
+[node name="banni" type="HBoxContainer" parent="pages/blacklist"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = -63.0
+offset_right = 979.0
+offset_bottom = -16.0
+theme_override_constants/separation = 7
+script = ExtResource("7_m4xmn")
+
+[node name="deban" type="Button" parent="pages/blacklist/banni"]
+layout_mode = 2
+theme = ExtResource("3_mvxxf")
+text = "deban"
+
+[node name="pseudo" type="Label" parent="pages/blacklist/banni"]
+custom_minimum_size = Vector2(650, 0)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="fond champs" type="Panel" parent="pages/blacklist"]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 96.0
+offset_right = 974.0
+offset_bottom = 640.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_khjxm")
+
+[node name="éléments texte" type="Control" parent="pages/blacklist"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="rechercher_banni_texte" type="LineEdit" parent="pages/blacklist/éléments texte"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 114.0
+offset_right = 763.0
+offset_bottom = 164.0
+theme = ExtResource("1_khjxm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3pxg")
+placeholder_text = "rechercher"
+
+[node name="rechercher_banni_bouton" type="Button" parent="pages/blacklist/éléments texte"]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 113.0
+offset_right = 955.0
+offset_bottom = 165.0
+theme = ExtResource("1_khjxm")
+text = "rechercher"
+
+[node name="ajouter_banni_texte" type="LineEdit" parent="pages/blacklist/éléments texte"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 178.0
+offset_right = 763.0
+offset_bottom = 228.0
+theme = ExtResource("1_khjxm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3pxg")
+placeholder_text = "ajouter un pseudo banni"
+
+[node name="ajouter_banni_bouton" type="Button" parent="pages/blacklist/éléments texte"]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 177.0
+offset_right = 955.0
+offset_bottom = 229.0
+theme = ExtResource("1_khjxm")
+text = "ajouter"
+
+[node name="scrolling" type="ScrollContainer" parent="pages/blacklist"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 237.0
+offset_right = 949.0
+offset_bottom = 641.0
+
+[node name="bannis" type="VBoxContainer" parent="pages/blacklist/scrolling"]
+layout_mode = 2
+theme_override_constants/separation = 11
 
 [node name="stats" type="Control" parent="pages"]
 anchors_preset = 0
@@ -295,5 +629,21 @@ script = ExtResource("2_j3pxg")
 [connection signal="pressed" from="CenterContainer/HBoxContainer/arrêt serveur" to="animations" method="_on_arrêt_serveur_pressed"]
 [connection signal="button_up" from="retour" to="animations" method="_on_retour_button_up"]
 [connection signal="pressed" from="retour" to="animations" method="_on_retour_pressed"]
+[connection signal="ajouter_popup" from="pages/reponses" to="centre/popup" method="ajouter_popup"]
+[connection signal="ajouter_popup" from="pages/reponses/question_reponse" to="centre/popup" method="ajouter_popup"]
+[connection signal="pressed" from="pages/reponses/question_reponse/supprimer" to="pages/reponses/question_reponse" method="_on_supprimer_pressed"]
+[connection signal="pressed" from="pages/reponses/éléments texte/rechercher_duo_bouton" to="pages/reponses" method="_on_rechercher_duo_bouton_pressed"]
+[connection signal="pressed" from="pages/reponses/éléments texte/ajouter_duo_bouton" to="pages/reponses" method="_on_ajouter_duo_bouton_pressed"]
+[connection signal="ajouter_popup" from="pages/suggestions" to="centre/popup" method="ajouter_popup"]
+[connection signal="ajouter_popup" from="pages/suggestions/suggestion" to="centre/popup" method="ajouter_popup"]
+[connection signal="pressed" from="pages/suggestions/suggestion/VBoxContainer/choix/oui" to="pages/suggestions/suggestion" method="_on_oui_pressed"]
+[connection signal="pressed" from="pages/suggestions/suggestion/VBoxContainer/choix/non" to="pages/suggestions/suggestion" method="_on_non_pressed"]
+[connection signal="pressed" from="pages/suggestions/suggestion/VBoxContainer/choix/non + ban" to="pages/suggestions/suggestion" method="_on_non__ban_pressed"]
+[connection signal="pressed" from="pages/suggestions/rechercher_bouton" to="pages/suggestions" method="_on_rechercher_bouton_pressed"]
+[connection signal="ajouter_popup" from="pages/blacklist" to="centre/popup" method="ajouter_popup"]
+[connection signal="ajouter_popup" from="pages/blacklist/banni" to="centre/popup" method="ajouter_popup"]
+[connection signal="pressed" from="pages/blacklist/banni/deban" to="pages/blacklist/banni" method="_on_deban_pressed"]
+[connection signal="pressed" from="pages/blacklist/éléments texte/rechercher_banni_bouton" to="pages/blacklist" method="_on_rechercher_banni_bouton_pressed"]
+[connection signal="pressed" from="pages/blacklist/éléments texte/ajouter_banni_bouton" to="pages/blacklist" method="_on_ajouter_banni_bouton_pressed"]
 [connection signal="pressed" from="pages/arrêt serveur/arrêt serveur" to="animations" method="arrêt_serveur"]
 [connection signal="animation_finished" from="animations" to="animations" method="_on_animation_finished"]

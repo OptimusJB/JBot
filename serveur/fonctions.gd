@@ -29,7 +29,8 @@ func _ready() -> void:
 		stopwords.append(element)
 	
 	#Save.serveur_charger()
-	#print("résultat : ", get_ressemblance_pourcentage_double("testd", "testd"))
+	#print("résultat : ", get_ressemblance_pourcentage_double("test", "testd"))
+	#print(get_phrase_ressemblance_pourcentage("pokemon test truc 3", "test 3"))
 	#print(remove_stopwords("ceci est un test"))
 
 func remove_stopwords(chaine:String) -> String:
@@ -73,13 +74,14 @@ func get_stat(pseudo:String, stat:String):
 		Save.serveur_sauvegarder()
 	return Save.stats_utilisateurs[pseudo][stat_choisie]
 
-func change_stat(pseudo:String, stat:String, incrementation:int):
+func change_stat(pseudo:String, stat:String, incrementation:int, sauvegarder=true):
 	assert(stat in ["questions", "suggestions", "accepts", "refus"], "stat invalide")
 	var stat_choisie = {"questions":0, "suggestions":1, "accepts":2, "refus":3}[stat]
 	if not pseudo in Save.stats_utilisateurs.keys():
 		Save.stats_utilisateurs[pseudo] = [0, 0, 0, 0]
 	Save.stats_utilisateurs[pseudo][stat_choisie] += incrementation
-	Save.serveur_sauvegarder()
+	if sauvegarder:
+		Save.serveur_sauvegarder()
 
 func demande_ajout_reponse(pseudo:String, question:String, reponse:String):
 	if is_blacklisted(pseudo):
@@ -182,8 +184,9 @@ func get_phrase_ressemblance_pourcentage(chaine1:String, chaine2:String):
 	return float(compteur) / float(len(temoin))
 	
 func poser_question(pseudo:String, question:String):
+	# retourne [code erreur, reponse (si pas d'erreur)]
 	if is_blacklisted(pseudo):
-		return 0
+		return [0, ""]
 	
 	var reponses_possibles = {}
 	var ressemblance = 0
@@ -197,15 +200,16 @@ func poser_question(pseudo:String, question:String):
 		if ressemblance >= float(Save.settings["pourcentage pour réponse appropriée"]):
 			for element in Save.questions_reponses[question_valide]:	# il peut y avoir plusieurs réponses pour la même question
 				reponses_possibles[element] = ressemblance
-	
+	#print(reponses_possibles)
 	var reponses_filtre = []
 	for reponse in reponses_possibles.keys():
 		if plus_haut_pourcentage - reponses_possibles[reponse] <= float(Save.settings["différence pourcentage admis pour aléatoire"]):
 			reponses_filtre.append(reponse)
 	
+	#print("filtre", reponses_filtre)
 	# on check si la liste est vide
 	if len(reponses_filtre) == 0:
-		return 1
+		return [1, ""]
 	
 	reponses_filtre.shuffle()
 	
@@ -213,6 +217,6 @@ func poser_question(pseudo:String, question:String):
 	if "&path&" in reponses_filtre[0]:
 		var chemin_fichier = reponses_filtre[0].replace("&path&", "")
 		if not FileAccess.file_exists(chemin_fichier):
-			return 2
-		return FileAccess.get_file_as_string(chemin_fichier)
-	return reponses_filtre[0]
+			return [2, ""]
+		return [4, FileAccess.get_file_as_string(chemin_fichier)]
+	return [3, reponses_filtre[0]]
