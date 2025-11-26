@@ -17,7 +17,7 @@ func _ready() -> void:
 	algo_used = {"simple":0, "double":1}[Save.settings["algo ressemblance mot (simple/double)"]]
 
 	# on load les stopwords dans la variable
-	var fichier_read = FileAccess.get_file_as_string("res://serveur/stopwords-fr.txt")
+	var fichier_read = FileAccess.get_file_as_string("res://stopwords-fr.txt")
 	if fichier_read == "":
 		push_error("problème lors de la lecture du fichier stopwords")
 	
