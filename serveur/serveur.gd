@@ -1,7 +1,7 @@
 extends Node2D
 
 var serveur = TCPServer.new()
-var server_port = 25566
+var server_port = 25565
 
 var cles_session = {}
 

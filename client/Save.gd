@@ -56,7 +56,7 @@ var blacklist = []	# non inclus dans data non plus
 var settings = {}	# setting:valeur
 
 var settings_base = """
-port=25566
+port=25565
 algo ressemblance mot (simple/double)=simple
 pourcentage ressemblance mot pendant analyse des deux phrases=0.7
 pourcentage pour réponse appropriée=0.65
