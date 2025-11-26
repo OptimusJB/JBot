@@ -3,6 +3,8 @@ extends Node2D
 var serveur = TCPServer.new()
 var server_port = 25566
 
+var cles_session = {}
+
 func se_connecter():
 	server_port = int(Save.settings["port"])
 	var err = serveur.listen(server_port)
@@ -92,6 +94,13 @@ func str_to_list(texte:String):
 	var liste = texte.split("&slliste&")
 	return liste
 
+func generer_cle_session(taille):
+	const caracteres = "azertyuiopmlkjhgfdsqwxcvbn"
+	var cle = ""
+	for i in range(taille):
+		cle = cle + caracteres[randi() % len(caracteres)]
+	return cle
+	
 # fonctions réactions
 func connexion(pseudo:String, mdp:String) -> Array:
 	Save.print_log("tentative de connexion")
@@ -101,12 +110,15 @@ func connexion(pseudo:String, mdp:String) -> Array:
 		return ["creation compte"]
 	
 	if Save.utilisateurs[pseudo] == mdp:
+		var cle_session = generer_cle_session(32)
+		cles_session[pseudo] = cle_session
+		
 		if is_admin(pseudo):
 			Save.print_log("connexion admin réussie")
-			return ["admin"]
+			return ["admin", cle_session]
 		else:
 			Save.print_log("connexion réussie")
-			return ["oui"]
+			return ["oui", cle_session]
 		
 	Save.print_log("mauvais mot de passe")
 	return ["non"]
@@ -122,9 +134,11 @@ func creer_compte(pseudo, mdp):
 	Save.serveur_sauvegarder()
 	return ["réussi"]
 
-func check_auth(pseudo, mdp):
+func check_auth(pseudo, cle):
 	# permet de checker si la requête est légitime
-	return Save.utilisateurs[pseudo] == mdp
+	if pseudo in cles_session.keys():
+		return cle == cles_session[pseudo]
+	return false
 
 func get_history(pseudo):
 	if not pseudo in Save.history.keys():
@@ -227,7 +241,7 @@ func accept(pseudo_suggestion, question, reponse):
 	# pas besoin de serveur_sauvegarder (déjà dans change_stat
 	return ["ok"]
 
-func refuse(pseudo_suggestion, question, reponse, do_print_log=true):
+func refuse(pseudo_suggestion, question, reponse, do_print_log=true, do_save=true):
 	if do_print_log:
 		Save.print_log("refus de réponse : " + reponse)
 	# on vérifie que la suggestion est toujours là (plusieurs admins en simultané)
@@ -236,15 +250,16 @@ func refuse(pseudo_suggestion, question, reponse, do_print_log=true):
 		return ["non"]
 	
 	Save.demandes_reponses.erase([pseudo_suggestion, question, reponse])
-	Fonctions.change_stat(pseudo_suggestion, "refus", 1)
+	Fonctions.change_stat(pseudo_suggestion, "refus", 1, do_save)
 	# pas besoin de serveur_sauvegarder (déjà dans change_stat)
 	return ["ok"]
 	
 func refuse_ban(pseudo_suggestion, question, reponse):
 	Save.print_log("refus de réponse : " + reponse + " + ban de " + pseudo_suggestion)
-	if refuse(pseudo_suggestion, question, reponse, false)[0] == "ok":
+	if refuse(pseudo_suggestion, question, reponse, false, false)[0] == "ok":
 		if bannir(pseudo_suggestion, false)[0] == "ok":
 			return ["ok"]
+		Save.serveur_sauvegarder()
 	return ["non"]
 		
 func deban(pseudo_deban):
@@ -334,6 +349,18 @@ func ajouter_reponse(question, reponse):
 	Save.questions_reponses[question].append(reponse)
 	Save.serveur_sauvegarder()
 	return ["ok"]
+
+func get_stats(recherche):
+	var liste_stats = []
+	for element in Save.utilisateurs.keys():
+		if recherche in element or recherche == "":
+			if element in Save.stats_utilisateurs.keys():
+				liste_stats = liste_stats + [element] + Save.stats_utilisateurs[element]
+			else:
+				liste_stats = liste_stats + [element] + [0, 0, 0, 0]
+	
+	Save.print_log("stats récupérées")
+	return liste_stats
 	
 func handle(connection:StreamPeerTCP):
 	var resultat
@@ -352,7 +379,7 @@ func handle(connection:StreamPeerTCP):
 	else:
 		# requêtes qui nécessitent que le compte soit connecté (donc le 2e et 3e élément de la liste sont le pseudo et le mot de passe)
 		if not check_auth(data[1], data[2]):
-			Save.print_log("fraude : le mot de passe fourni ne correspond pas")
+			Save.print_log("fraude : la clé de session fournie ne correspond pas")
 			return
 		
 		if data[0] == "get history":
@@ -407,7 +434,9 @@ func handle(connection:StreamPeerTCP):
 			
 			elif data[0] == "ajouter reponse":
 				resultat = ajouter_reponse(data[3], data[4])
-				
+			
+			elif data[0] == "get stats":
+				resultat = get_stats(data[3])
 			else:
 				Save.print_log("requête invalide")
 				return 0

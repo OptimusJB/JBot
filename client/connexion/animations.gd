@@ -77,6 +77,9 @@ func _on_se_connecter_pressed() -> void:
 		# on sauvegarde le pseudo
 		Save.set_data("pseudo", $"../éléments ui/container champs/pseudo".text)
 		
+		# on sauvegarde la clé de session
+		Global.temp_mdp = resultat[1]
+		
 		Global.popup_switch.append("Bienvenue " + Save.get_data("pseudo") + " !")
 		change_scene = "jbot"
 		play("disparition")

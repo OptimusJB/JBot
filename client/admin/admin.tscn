@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://1uhmqlb3bwyp"]
+[gd_scene load_steps=20 format=3 uid="uid://1uhmqlb3bwyp"]
 
 [ext_resource type="Script" uid="uid://dhxx5214kjykl" path="res://client/admin/popup.gd" id="1_0r8yo"]
 [ext_resource type="Theme" uid="uid://gmqta8b8i02m" path="res://assets/theme_JBot.tres" id="1_khjxm"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://d2ahkhdbuy242" path="res://client/admin/question_reponse.gd" id="4_m4xmn"]
 [ext_resource type="Script" uid="uid://bn71wwhcnomsn" path="res://client/admin/blacklist.gd" id="6_r1a7c"]
 [ext_resource type="Script" uid="uid://sw6ye72ditcq" path="res://client/admin/banni.gd" id="7_m4xmn"]
+[ext_resource type="Script" uid="uid://nkdob3s1xv2n" path="res://client/admin/stats.gd" id="10_6rg53"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uqsau"]
 bg_color = Color(0.42352942, 0.42352942, 0.42352942, 1)
@@ -76,6 +77,66 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("pages/reponses:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("pages/suggestions:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("pages/blacklist:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("pages/stats:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("pages/arrêt serveur:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_24tl4"]
@@ -491,6 +552,7 @@ layout_mode = 2
 theme_override_constants/separation = 11
 
 [node name="blacklist" type="Control" parent="pages"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -578,11 +640,128 @@ layout_mode = 2
 theme_override_constants/separation = 11
 
 [node name="stats" type="Control" parent="pages"]
+visible = false
 anchors_preset = 0
-offset_left = 195.0
-offset_top = 179.0
-offset_right = 235.0
-offset_bottom = 219.0
+script = ExtResource("10_6rg53")
+
+[node name="joueur" type="HBoxContainer" parent="pages/stats"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = -43.0
+offset_right = 953.0
+offset_bottom = -20.0
+theme_override_constants/separation = 7
+
+[node name="pseudo" type="Label" parent="pages/stats/joueur"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="questions" type="Label" parent="pages/stats/joueur"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="suggestions" type="Label" parent="pages/stats/joueur"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="validées" type="Label" parent="pages/stats/joueur"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="refusées" type="Label" parent="pages/stats/joueur"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="fond champs" type="Panel" parent="pages/stats"]
+layout_mode = 0
+offset_left = 181.0
+offset_top = 96.0
+offset_right = 974.0
+offset_bottom = 640.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_khjxm")
+
+[node name="légende" type="HBoxContainer" parent="pages/stats"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 187.0
+offset_right = 953.0
+offset_bottom = 210.0
+theme_override_constants/separation = 7
+
+[node name="pseudo" type="Label" parent="pages/stats/légende"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "pseudo"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="questions" type="Label" parent="pages/stats/légende"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "questions"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="suggestions" type="Label" parent="pages/stats/légende"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "suggestions"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="validées" type="Label" parent="pages/stats/légende"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "validées"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="refusées" type="Label" parent="pages/stats/légende"]
+custom_minimum_size = Vector2(145, 0)
+layout_mode = 2
+text = "refusées"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="rechercher_joueur_texte" type="LineEdit" parent="pages/stats"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 114.0
+offset_right = 763.0
+offset_bottom = 164.0
+theme = ExtResource("1_khjxm")
+theme_override_styles/normal = SubResource("StyleBoxFlat_j3pxg")
+placeholder_text = "rechercher"
+
+[node name="rechercher_joueur_bouton" type="Button" parent="pages/stats"]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 113.0
+offset_right = 955.0
+offset_bottom = 165.0
+theme = ExtResource("1_khjxm")
+text = "rechercher"
+
+[node name="scrolling" type="ScrollContainer" parent="pages/stats"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 225.0
+offset_right = 958.0
+offset_bottom = 641.0
+
+[node name="stats" type="VBoxContainer" parent="pages/stats/scrolling"]
+layout_mode = 2
+theme_override_constants/separation = 11
 
 [node name="arrêt serveur" type="Control" parent="pages"]
 visible = false
@@ -645,5 +824,7 @@ script = ExtResource("2_j3pxg")
 [connection signal="pressed" from="pages/blacklist/banni/deban" to="pages/blacklist/banni" method="_on_deban_pressed"]
 [connection signal="pressed" from="pages/blacklist/éléments texte/rechercher_banni_bouton" to="pages/blacklist" method="_on_rechercher_banni_bouton_pressed"]
 [connection signal="pressed" from="pages/blacklist/éléments texte/ajouter_banni_bouton" to="pages/blacklist" method="_on_ajouter_banni_bouton_pressed"]
+[connection signal="ajouter_popup" from="pages/stats" to="centre/popup" method="ajouter_popup"]
+[connection signal="pressed" from="pages/stats/rechercher_joueur_bouton" to="pages/stats" method="_on_rechercher_joueur_bouton_pressed"]
 [connection signal="pressed" from="pages/arrêt serveur/arrêt serveur" to="animations" method="arrêt_serveur"]
 [connection signal="animation_finished" from="animations" to="animations" method="_on_animation_finished"]

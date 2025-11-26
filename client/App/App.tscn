@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://2i2ldgr1uwx2"]
+[gd_scene load_steps=32 format=3 uid="uid://2i2ldgr1uwx2"]
 
 [ext_resource type="Script" uid="uid://bnj2jurqbxdqs" path="res://client/App/animations.gd" id="1_kh48b"]
 [ext_resource type="Script" uid="uid://dm8etxgbqumeg" path="res://client/App/fond_2.gd" id="1_lwptl"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cwq51wri1yfsj" path="res://client/App/reponse.gd" id="2_ugukq"]
 [ext_resource type="Texture2D" uid="uid://gcfigjbr2y51" path="res://assets/JBot logo.png" id="4_ewfhn"]
 [ext_resource type="Script" uid="uid://cr2iyvo5b5wo5" path="res://client/App/proposer_réponse.gd" id="4_ge6em"]
+[ext_resource type="Script" uid="uid://3kpb7n2ntx26" path="res://client/App/envoyer_message.gd" id="4_tfwke"]
 [ext_resource type="Script" uid="uid://d3cn01c17usn7" path="res://client/App/admin.gd" id="8_ge6em"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewfhn"]
@@ -306,6 +307,7 @@ grow_vertical = 2
 mouse_filter = 1
 theme = ExtResource("1_qebo1")
 text = "envoyer"
+script = ExtResource("4_tfwke")
 
 [node name="types messages" type="Control" parent="."]
 layout_mode = 3
